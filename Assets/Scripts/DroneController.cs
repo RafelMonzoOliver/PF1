@@ -61,20 +61,13 @@ public class DroneController : MonoBehaviour
         transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
 
-    void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         isDamaged = true;
         bateria -= damage;
         StartCoroutine(DamageCooldown());
     }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Obstacle" && !isDamaged)
-        {
-            TakeDamage(1);
-        }
-    }
+    
 
     IEnumerator DamageCooldown()
     {

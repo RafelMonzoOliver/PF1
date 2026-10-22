@@ -1,20 +1,21 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DroneController : MonoBehaviour
 {
+    [FormerlySerializedAs("speed")]
     [Header("Movement")]
-    [SerializeField] private float speed;
-    private Rigidbody rb;
+    [SerializeField] private float _speed;
     
+    [FormerlySerializedAs("bateria")]
     [Header("HP")]
-    [SerializeField] private float bateria;
-    private bool isDamaged;
+    [SerializeField] private float _bateria;
+    private bool _isDamaged;
     
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class DroneController : MonoBehaviour
             Descend();
         }
         
-        if(bateria <= 0)
+        if(_bateria <= 0)
         {
             Destroy(gameObject);
         }
@@ -38,6 +39,7 @@ public class DroneController : MonoBehaviour
 
     private void LateUpdate()
     {
+        //En LateUpdate te aseguras de que los Input.GetKey no produzcan errores en el movimiento basico
         Movement();
     }
 
@@ -46,25 +48,23 @@ public class DroneController : MonoBehaviour
         float movX = Input.GetAxis("Horizontal");
         float movY = Input.GetAxis("Vertical");
 
-        //Vector3 velocidad = rb.linearVelocity;
-        transform.Translate(movX * speed * Time.deltaTime, 0 , movY * speed * Time.deltaTime);
-        //rb.linearVelocity = velocidad;
+        transform.Translate(movX * _speed * Time.deltaTime, 0 , movY * _speed * Time.deltaTime);
     }
 
     void Ascende()
     {
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        transform.Translate(Vector3.up * _speed * Time.deltaTime);
     }
 
     void Descend()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        transform.Translate(Vector3.down * _speed * Time.deltaTime);
     }
 
     public void TakeDamage(float damage)
     {
-        isDamaged = true;
-        bateria -= damage;
+        _isDamaged = true;
+        _bateria -= damage;
         StartCoroutine(DamageCooldown());
     }
     
@@ -72,6 +72,6 @@ public class DroneController : MonoBehaviour
     IEnumerator DamageCooldown()
     {
         yield return new WaitForSeconds(1);
-        isDamaged = false;
+        _isDamaged = false;
     }
 }

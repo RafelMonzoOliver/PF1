@@ -4,7 +4,7 @@ using UnityEngine;
 public class SelfDestruct : MonoBehaviour
 {
     [SerializeField] private float _damage;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         Destroy(gameObject, 4f);
@@ -18,6 +18,7 @@ public class SelfDestruct : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //El tag se asegura que esta tocando al jugador
         if (other.tag == "Player")
         {
             other.GetComponent<DroneController>().TakeDamage(_damage);

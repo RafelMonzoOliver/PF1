@@ -6,7 +6,7 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _obstacle;
     [SerializeField] private float _spawnCooldown;
-    [FormerlySerializedAs("isSpawning")] public bool _isSpawning;
+    public bool _isSpawning;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

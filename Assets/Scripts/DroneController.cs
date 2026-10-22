@@ -5,11 +5,9 @@ using UnityEngine.Serialization;
 
 public class DroneController : MonoBehaviour
 {
-    [FormerlySerializedAs("speed")]
     [Header("Movement")]
     [SerializeField] private float _speed;
     
-    [FormerlySerializedAs("bateria")]
     [Header("HP")]
     [SerializeField] private float _bateria;
     private bool _isDamaged;
